@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kairos ご提案 | ハウスドクター様 Webサイト制作・WordPress実装</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#1B2A4A;
+    --blue:#3E7CB1;
+    --sand:#E8DCC8;
+    --green:#6B9B7C;
+    --cream:#F7F3EC;
+    --ink:#2B2B2B;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:'Noto Sans JP',sans-serif;
+    color:var(--ink);
+    background:var(--cream);
+    line-height:1.8;
+    overflow-x:hidden;
+  }
+  h1,h2,h3,.en{
+    font-family:'Outfit',sans-serif;
+  }
+  a{text-decoration:none;}
+  img{max-width:100%;}
+  .wrap{
+    max-width:1080px;
+    margin:0 auto;
+    padding:0 24px;
+  }
+  .tag{
+    display:inline-block;
+    font-family:'Outfit',sans-serif;
+    font-size:12px;
+    letter-spacing:.14em;
+    font-weight:600;
+    padding:6px 14px;
+    border-radius:999px;
+    background:rgba(255,255,255,.14);
+    color:#fff;
+    border:1px solid rgba(255,255,255,.35);
+  }
+
+  /* ===== HERO ===== */
+  .hero{
+    position:relative;
+    background:linear-gradient(135deg,var(--navy) 0%,#213a63 55%,var(--blue) 100%);
+    color:#fff;
+    padding:120px 0 100px;
+    overflow:hidden;
+  }
+  .hero::before{
+    content:"";
+    position:absolute;
+    top:-120px;right:-120px;
+    width:420px;height:420px;
+    background:radial-gradient(circle at center, rgba(107,155,124,.5), transparent 70%);
+    filter:blur(10px);
+  }
+  .grid-deco{
+    position:absolute;
+    right:40px;
+    bottom:-40px;
+    display:grid;
+    grid-template-columns:repeat(6,22px);
+    grid-auto-rows:22px;
+    gap:8px;
+    opacity:.5;
+  }
+  .grid-deco span{
+    background:rgba(255,255,255,.18);
+    border-radius:4px;
+  }
+  .grid-deco span:nth-child(4n){background:var(--green);opacity:.9;}
+  .grid-deco span:nth-child(7n){background:var(--sand);opacity:.8;}
+
+  .hero-inner{position:relative;z-index:2;}
+  .hero h1{
+    font-size:clamp(32px,5vw,56px);
+    font-weight:700;
+    margin:28px 0 20px;
+    line-height:1.35;
+    max-width:760px;
+  }
+  .hero h1 em{
+    font-style:normal;
+    color:var(--sand);
+  }
+  .hero p.lead{
+    font-size:16px;
+    max-width:560px;
+    color:rgba(255,255,255,.88);
+    margin-bottom:34px;
+  }
+  .hero .meta{
+    display:flex;
+    flex-wrap:wrap;
+    gap:12px;
+    font-size:13px;
+    color:rgba(255,255,255,.7);
+  }
+  .meta span{
+    border-left:2px solid var(--green);
+    padding-left:10px;
+  }
+
+  /* ===== SECTION GENERIC ===== */
+  section{padding:96px 0;}
+  .section-head{
+    margin-bottom:56px;
+    max-width:700px;
+  }
+  .eyebrow{
+    font-family:'Outfit',sans-serif;
+    font-size:13px;
+    letter-spacing:.2em;
+    font-weight:600;
+    color:var(--blue);
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin-bottom:14px;
+  }
+  .eyebrow::before{
+    content:"";
+    width:26px;height:2px;
+    background:var(--green);
+    display:inline-block;
+  }
+  .section-head h2{
+    font-size:clamp(24px,3.4vw,36px);
+    font-weight:700;
+    color:var(--navy);
+    line-height:1.5;
+  }
+  .section-head p{
+    margin-top:16px;
+    color:#555;
+    font-size:15px;
+  }
+
+  /* ===== UNDERSTANDING ===== */
+  .understand{
+    background:#fff;
+  }
+  .scatter-wrap{
+    position:relative;
+    display:flex;
+    gap:60px;
+    align-items:center;
+    flex-wrap:wrap;
+  }
+  .scatter{
+    position:relative;
+    flex:1;
+    min-width:260px;
+    height:220px;
+  }
+  .chip{
+    position:absolute;
+    background:var(--cream);
+    border:1px solid #ddd3c2;
+    border-radius:10px;
+    padding:10px 14px;
+    font-size:12px;
+    font-weight:700;
+    color:var(--navy);
+    box-shadow:0 6px 14px rgba(0,0,0,.06);
+  }
+  .chip.c1{top:5%;left:5%;transform:rotate(-9deg);}
+  .chip.c2{top:0;left:45%;transform:rotate(6deg);}
+  .chip.c3{top:55%;left:0;transform:rotate(4deg);}
+  .chip.c4{top:40%;left:55%;transform:rotate(-5deg);background:var(--sand);}
+  .chip.c5{top:70%;left:60%;transform:rotate(10deg);}
+  .arrow{
+    font-family:'Outfit',sans-serif;
+    font-size:28px;
+    color:var(--green);
+    flex:0 0 auto;
+  }
+  .tidy{
+    flex:1;
+    min-width:260px;
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:10px;
+  }
+  .tidy div{
+    background:var(--navy);
+    color:#fff;
+    font-size:11px;
+    font-weight:700;
+    text-align:center;
+    padding:16px 6px;
+    border-radius:8px;
+  }
+  .tidy div:nth-child(3n+1){background:var(--blue);}
+  .tidy div:nth-child(5n){background:var(--green);}
+
+  .understand-text{margin-top:48px;max-width:760px;}
+  .understand-text p{color:#444;margin-bottom:16px;}
+  .understand-list{
+    margin-top:28px;
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:16px;
+  }
+  .understand-list li{
+    list-style:none;
+    background:var(--cream);
+    border-left:3px solid var(--blue);
+    padding:14px 18px;
+    font-size:14px;
+    color:#333;
+    border-radius:0 8px 8px 0;
+  }
+
+  /* ===== VALUE CARDS ===== */
+  .value{background:var(--navy);color:#fff;}
+  .value .section-head h2{color:#fff;}
+  .value .section-head p{color:rgba(255,255,255,.7);}
+  .value .eyebrow{color:var(--sand);}
+  .value .eyebrow::before{background:var(--green);}
+  .cards{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+    gap:22px;
+  }
+  .card{
+    background:rgba(255,255,255,.06);
+    border:1px solid rgba(255,255,255,.12);
+    border-radius:16px;
+    padding:30px 24px;
+    position:relative;
+    transition:transform .25s ease, background .25s ease;
+  }
+  .card:hover{
+    transform:translateY(-6px);
+    background:rgba(255,255,255,.1);
+  }
+  .card .num{
+    font-family:'Outfit',sans-serif;
+    font-size:13px;
+    color:var(--green);
+    letter-spacing:.1em;
+    margin-bottom:16px;
+    display:block;
+  }
+  .card .icon{
+    width:40px;height:40px;
+    border-radius:10px;
+    margin-bottom:18px;
+    background:linear-gradient(135deg,var(--blue),var(--green));
+    position:relative;
+  }
+  .card .icon::after{
+    content:"";
+    position:absolute;
+    inset:8px;
+    border-radius:6px;
+    background:var(--navy);
+  }
+  .card h3{
+    font-size:17px;
+    font-weight:600;
+    margin-bottom:12px;
+    line-height:1.5;
+  }
+  .card p{
+    font-size:13.5px;
+    color:rgba(255,255,255,.75);
+  }
+
+  /* ===== PROCESS ===== */
+  .process{background:var(--cream);}
+  .timeline{
+    position:relative;
+    margin-top:20px;
+  }
+  .timeline::before{
+    content:"";
+    position:absolute;
+    left:19px;top:6px;bottom:6px;
+    width:2px;
+    background:repeating-linear-gradient(to bottom, var(--blue) 0 8px, transparent 8px 16px);
+  }
+  .step{
+    position:relative;
+    padding-left:60px;
+    margin-bottom:38px;
+  }
+  .step:last-child{margin-bottom:0;}
+  .step .dot{
+    position:absolute;
+    left:0;top:0;
+    width:40px;height:40px;
+    border-radius:50%;
+    background:#fff;
+    border:2px solid var(--blue);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-family:'Outfit',sans-serif;
+    font-weight:700;
+    color:var(--navy);
+    font-size:14px;
+  }
+  .step.key .dot{
+    background:var(--green);
+    border-color:var(--green);
+    color:#fff;
+  }
+  .step h3{
+    font-size:16px;
+    color:var(--navy);
+    margin-bottom:6px;
+    display:flex;
+    align-items:center;
+    gap:10px;
+    flex-wrap:wrap;
+  }
+  .step h3 .tagline{
+    font-size:11px;
+    font-weight:700;
+    color:var(--blue);
+    background:rgba(62,124,177,.1);
+    padding:3px 10px;
+    border-radius:999px;
+  }
+  .step p{font-size:13.5px;color:#555;}
+
+  .schedule-note{
+    margin-top:44px;
+    background:#fff;
+    border:1px dashed #c9bfa8;
+    border-radius:14px;
+    padding:22px 26px;
+    font-size:13.5px;
+    color:#555;
+    display:flex;
+    gap:16px;
+    align-items:flex-start;
+  }
+  .schedule-note strong{color:var(--navy);}
+
+  /* ===== CLOSING ===== */
+  .closing{
+    position:relative;
+    background:linear-gradient(160deg,#213a63,var(--navy) 60%,#16243f);
+    color:#fff;
+    text-align:center;
+    overflow:hidden;
+  }
+  .closing::before{
+    content:"";
+    position:absolute;
+    width:600px;height:600px;
+    background:radial-gradient(circle,rgba(107,155,124,.35),transparent 70%);
+    top:-200px;left:50%;
+    transform:translateX(-50%);
+  }
+  .closing-inner{position:relative;z-index:2;}
+  .closing h2{
+    font-size:clamp(26px,4vw,40px);
+    margin-bottom:18px;
+    font-weight:700;
+  }
+  .closing p{
+    max-width:560px;
+    margin:0 auto 36px;
+    color:rgba(255,255,255,.8);
+    font-size:15px;
+  }
+  .cta-btn{
+    display:inline-block;
+    background:var(--green);
+    color:#fff;
+    font-weight:700;
+    font-size:15px;
+    padding:16px 42px;
+    border-radius:999px;
+    box-shadow:0 10px 30px rgba(107,155,124,.4);
+    transition:transform .2s ease, box-shadow .2s ease;
+  }
+  .cta-btn:hover{
+    transform:translateY(-3px);
+    box-shadow:0 14px 36px rgba(107,155,124,.55);
+  }
+  .closing-sub{
+    margin-top:30px;
+    font-size:12.5px;
+    color:rgba(255,255,255,.5);
+  }
+  footer{
+    background:#131f36;
+    color:rgba(255,255,255,.55);
+    text-align:center;
+    padding:30px 0;
+    font-size:12px;
+    letter-spacing:.08em;
+  }
+
+  @media (max-width:760px){
+    .scatter-wrap{flex-direction:column;}
+    .arrow{transform:rotate(90deg);}
+    .understand-list{grid-template-columns:1fr;}
+    .hero{padding:90px 0 70px;}
+    section{padding:70px 0;}
+    .grid-deco{display:none;}
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="grid-deco">
+    <span></span><span></span><span></span><span></span><span></span><span></span>
+    <span></span><span></span><span></span><span></span><span></span><span></span>
+    <span></span><span></span><span></span><span></span><span></span><span></span>
+    <span></span><span></span><span></span><span></span><span></span><span></span>
+  </div>
+  <div class="wrap hero-inner">
+    <span class="tag">PROPOSAL FOR ハウスドクター 様</span>
+    <h1>散らかった工程に、<br><em>ひとつの答え</em>を。</h1>
+    <p class="lead">
+      AIが描いた30ページ分のデザインを、迷いなくWordPressへ。
+      コーディングから実装・公開確認まで、整理と再現のプロフェッショナルチーム「Kairos」より、
+      本募集に対するご提案をお届けします。
+    </p>
+    <div class="meta">
+      <span>買取・片付けサービスサイト／約30ページ一括制作</span>
+      <span>Figma Make・AIコーディング活用</span>
+      <span>Kairos — Web制作・システム開発</span>
+    </div>
+  </div>
+</header>
+
+<section class="understand">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">UNDERSTANDING THE BRIEF</div>
+      <h2>この募集で、本当に問われているのは<br>「実装力」より「整理する力」だと考えています。</h2>
+      <p>AIが生成したデザインは、情報としては豊かでも、そのままでは"並んでいるだけ"です。
+        30ページという規模で破綻なく形にするには、最初の設計がすべてを決めます。</p>
+    </div>
+
+    <div class="scatter-wrap">
+      <div class="scatter">
+        <div class="chip c1">買取フォーム</div>
+        <div class="chip c2">片付け事例</div>
+        <div class="chip c3">料金ページ</div>
+        <div class="chip c4">スマホ版</div>
+        <div class="chip c5">エリア別LP</div>
+      </div>
+      <div class="arrow">→</div>
+      <div class="tidy">
+        <div>共通<br>ヘッダー</div>
+        <div>査定<br>導線</div>
+        <div>事例<br>テンプレ</div>
+        <div>料金<br>テーブル</div>
+        <div>エリア<br>ページ</div>
+        <div>フォーム<br>CTA</div>
+        <div>SP<br>最適化</div>
+        <div>SEO<br>設定</div>
+        <div>公開<br>チェック</div>
+      </div>
+    </div>
+
+    <div class="understand-text">
+      <p>
+        「デザイン画像をAIツールでどう実装するか」「30ページを一括で、崩れなく」——
+        この募集文からは、単発の作業委託ではなく、<strong>仕組み化できるパートナー</strong>を
+        探していらっしゃることが伝わってきます。
+      </p>
+      <ul class="understand-list">
+        <li>AI生成デザイン（Figma Make等）の意図を正しく汲み取る実装力が必要</li>
+        <li>30ページ規模でも、修正が1点で済む共通テンプレート設計が鍵</li>
+        <li>買取・片付けという業種特有の「信頼」を伝える導線設計が重要</li>
+        <li>納期・進捗の可視化が、継続依頼の判断材料になる</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="value">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">WHAT KAIROS CAN DO</div>
+      <h2>Kairosが、この案件にお約束できること</h2>
+      <p>AIツールは「使える」だけでなく、「どう組み合わせれば速く・正確になるか」まで考えます。</p>
+    </div>
+    <div class="cards">
+      <div class="card">
+        <span class="num">01</span>
+        <div class="icon"></div>
+        <h3>AIが描いた線を、コードで正確になぞる力</h3>
+        <p>Figma Make・Claude Codeなどを目的別に使い分け、デザイン画像の意図を崩さずにコーディング。差分レビューを前提にした実装フローです。</p>
+      </div>
+      <div class="card">
+        <span class="num">02</span>
+        <div class="icon"></div>
+        <h3>"1ページ"ではなく"仕組み"で考える設計</h3>
+        <p>共通テンプレート・カスタムフィールド・ACF等の設計を先に固め、30ページを展開しても後戻りしないWordPress構築を行います。</p>
+      </div>
+      <div class="card">
+        <span class="num">03</span>
+        <div class="icon"></div>
+        <h3>買取・片付け業界の導線理解</h3>
+        <p>査定申込・訪問予約・事例訴求など、信頼獲得がコンバージョンを左右する業種特性を踏まえたUI調整を行います。</p>
+      </div>
+      <div class="card">
+        <span class="num">04</span>
+        <div class="icon"></div>
+        <h3>レスポンシブ・表示速度・SEOの三位一体</h3>
+        <p>公開前に全ページでクロスデバイス確認。画像最適化・不要スクリプト削減まで含めて仕上げます。</p>
+      </div>
+      <div class="card">
+        <span class="num">05</span>
+        <div class="icon"></div>
+        <h3>進捗の"見える化"による伴走</h3>
+        <p>週次での進捗共有・チャット即応を前提にした体制。まず1案件、そして継続のご相談にも対応します。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="process">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">HOW WE WORK</div>
+      <h2>進め方とスケジュールイメージ</h2>
+      <p>まずは選考MTGにて、実際のAIデザイン画像を拝見しながら実装方針をすり合わせます。</p>
+    </div>
+
+    <div class="timeline">
+      <div class="step key">
+        <div class="dot">0</div>
+        <h3>選考オンラインMTG <span class="tagline">報酬発生なし</span></h3>
+        <p>デザイン画像の共有を受け、Figma Make等を用いた実装方針と概算費用の方向性をすり合わせます。</p>
+      </div>
+      <div class="step">
+        <div class="dot">1</div>
+        <h3>実装方針の確定・見積り</h3>
+        <p>作業範囲・ページ数・使用ツールを確認のうえ、正式な見積りとスケジュールをご提示します。</p>
+      </div>
+      <div class="step key">
+        <div class="dot">2</div>
+        <h3>共通テンプレート設計 <span class="tagline">目安 3〜5日</span></h3>
+        <p>ヘッダー・フッター・各セクションの可変部分を設計し、代表1ページを試作して認識を合わせます。</p>
+      </div>
+      <div class="step">
+        <div class="dot">3</div>
+        <h3>約30ページの一括実装 <span class="tagline">目安 2〜3週間</span></h3>
+        <p>テンプレートをもとにページを展開。文章・画像入稿までまとめて対応します。</p>
+      </div>
+      <div class="step">
+        <div class="dot">4</div>
+        <h3>表示確認・調整</h3>
+        <p>PC・スマホ双方の崩れチェック、表示速度の最終調整を行います。</p>
+      </div>
+      <div class="step key">
+        <div class="dot">5</div>
+        <h3>公開・継続運用のご相談</h3>
+        <p>公開後の運用・追加ページ展開についても、継続してご依頼いただける体制を整えます。</p>
+      </div>
+    </div>
+
+    <div class="schedule-note">
+      <div>📌</div>
+      <div><strong>全体スケジュールの目安：</strong>着手から公開まで約4〜6週間を想定しています（ページ内容・画像点数により変動します）。概算費用・期間は正式なお打ち合わせ後に確定いたします。</div>
+    </div>
+  </div>
+</section>
+
+<section class="closing">
+  <div class="wrap closing-inner">
+    <div class="eyebrow" style="justify-content:center;color:var(--sand);">NEXT ACTION</div>
+    <h2>まずは、オンラインMTGから。</h2>
+    <p>
+      実際にAIで制作されたWebデザイン画像を拝見しながら、Figma Makeなどを活用した
+      具体的な実装方法と、概算費用・制作期間をご提案させてください。
+    </p>
+    <a href="#" class="cta-btn">Kairosに相談する</a>
+    <div class="closing-sub">Kairos — Web制作・システム開発チーム ／ 本提案はハウスドクター様の募集内容に基づき作成しています</div>
+  </div>
+</section>
+
+<footer>
+  © Kairos — Web Production &amp; System Development Team
+</footer>
+
+</body>
+</html>
